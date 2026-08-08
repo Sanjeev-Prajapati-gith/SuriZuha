@@ -63,6 +63,16 @@ Example:
 http://<VM-IP>/
 ```
 
+If `sudo` is not installed in the VM, log in as `root` or use `su -`, then run:
+
+```bash
+apt update
+apt install sudo -y
+usermod -aG sudo hullu
+```
+
+After that, log out and log back in as `hullu`.
+
 ---
 
 ## Web Interfaces
@@ -169,14 +179,35 @@ This makes the lab useful for practising both **network intrusion detection** an
 
 ## Main Lab Flow
 
-A simple student workflow:
+SuriZuh can be used in two main ways.
+
+### Network IDS Flow with Suricata
+
+This flow focuses on network traffic and Suricata alerts.
 
 1. Open the lab home page.
 2. Open DVWA.
-3. Run web attacks or scans from Kali.
-4. Check Suricata alerts in EveBox.
-5. Check Suricata and host alerts in Wazuh.
-6. Edit local Suricata rules and test again.
+3. Open Suricata Manager and set a suitable Suricata rule for the traffic you want to detect.
+4. From Kali, run web attacks, scans, or traffic tests against the SuriZuh VM.
+5. Check Suricata alerts in EveBox.
+6. Check Suricata alerts in Wazuh Dashboard.
+7. Edit local Suricata rules and test the same attack again.
+
+This helps students understand how network attacks can be detected from traffic.
+
+### Host IDS Flow with Wazuh
+
+This flow focuses on system logs, host activity, and Wazuh alerts.
+
+1. Open Wazuh Dashboard.
+2. Review alerts from the SuriZuh server itself.
+3. Review Suricata alerts in Wazuh, because Wazuh can read Suricata `eve.json` events.
+4. Test host activity such as SSH login attempts, sudo usage, file changes, or service changes.
+5. Add another VM, such as Windows, and install the Wazuh Agent on it.
+6. Configure the Windows Agent to send logs to the SuriZuh Wazuh Manager.
+7. Review Windows security events and system activity in Wazuh Dashboard.
+
+This helps students compare local Linux host monitoring with logs collected from another endpoint.
 
 ---
 
