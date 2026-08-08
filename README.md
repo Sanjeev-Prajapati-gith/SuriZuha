@@ -185,49 +185,49 @@ A simple student workflow:
 Check Suricata:
 
 ```bash
-sudo systemctl status suricata
+systemctl status suricata
 ```
 
 Start Suricata:
 
 ```bash
-sudo systemctl start suricata
+systemctl start suricata
 ```
 
 Stop Suricata:
 
 ```bash
-sudo systemctl stop suricata
+systemctl stop suricata
 ```
 
 Restart Suricata:
 
 ```bash
-sudo systemctl restart suricata
+systemctl restart suricata
 ```
 
 Test Suricata configuration:
 
 ```bash
-sudo suricata -T -c /etc/suricata/suricata.yaml -i ens33
+suricata -T -c /etc/suricata/suricata.yaml -i ens33
 ```
 
 Edit local Suricata rules:
 
 ```bash
-sudo nano /var/lib/suricata/rules/local.rules
+nano /var/lib/suricata/rules/local.rules
 ```
 
 Edit Suricata configuration:
 
 ```bash
-sudo nano /etc/suricata/suricata.yaml
+nano /etc/suricata/suricata.yaml
 ```
 
 Restart Wazuh Manager:
 
 ```bash
-sudo systemctl restart wazuh-manager
+systemctl restart wazuh-manager
 ```
 
 ---
@@ -239,8 +239,8 @@ Wazuh Vulnerability Detection is disabled in this VM to reduce disk usage and ke
 Students can enable it later with:
 
 ```bash
-sudo sed -i '/<vulnerability-detection>/,/<\/vulnerability-detection>/ s/<enabled>no<\/enabled>/<enabled>yes<\/enabled>/' /var/ossec/etc/ossec.conf
-sudo systemctl restart wazuh-manager
+sed -i '/<vulnerability-detection>/,/<\/vulnerability-detection>/ s/<enabled>no<\/enabled>/<enabled>yes<\/enabled>/' /var/ossec/etc/ossec.conf
+systemctl restart wazuh-manager
 ```
 
 Check the setting:
@@ -264,9 +264,9 @@ The VM uses Debian server without a graphical desktop to keep it lighter.
 Students who want a GUI can install XFCE:
 
 ```bash
-sudo apt update
-sudo apt install xfce4 lightdm -y
-sudo reboot
+apt update
+apt install xfce4 lightdm -y
+reboot
 ```
 
 During the installation, select **lightdm** if Debian asks for the default display manager.
