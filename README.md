@@ -154,25 +154,14 @@ Suricata Manager does not show log content. Use Wazuh and EveBox for log and ale
 
 SuriZuh can be used as the main monitoring VM in a small cyber security lab.
 
-One simple setup is:
+Lab VMs can be placed on the same virtual network, and they should be able to reach each other.
 
-```text
-Kali / Attacker VM  --->  SuriZuh VM
-```
+Common lab scenarios include:
 
-Students can run attacks, scans, or web testing against the SuriZuh VM and its services.
-For example, they can test against DVWA, Apache, SSH, phpMyAdmin, or other exposed lab services.
+- **Attacks targeting SuriZuh directly:** Students can run attacks, scans, or web testing against DVWA, Apache, SSH, phpMyAdmin, or other exposed lab services. If suitable Suricata rules are enabled, network attacks targeting the SuriZuh VM should be detected.
+- **Attacks between other lab VMs:** SuriZuh can monitor traffic between other VMs when Suricata can see that traffic. In VMware or VirtualBox labs, this usually means placing the VMs on the same virtual network and enabling promiscuous mode where required.
+- **Endpoint logging with Wazuh Agent:** An attacking VM can target a Windows VM while the Windows VM reports security events and system logs to SuriZuh through the Wazuh Agent.
 
-The traffic is analysed by **Suricata** as a Network IDS.
-Students can then review the alerts in **EveBox** and **Wazuh Dashboard**.
-
-The same VM can also be used as a Wazuh server for another machine:
-
-```text
-Windows VM with Wazuh Agent  --->  SuriZuh Wazuh Manager
-```
-
-In this setup, the Windows VM sends its security events and system logs to SuriZuh through the Wazuh Agent.
 Students can then compare:
 
 - Network alerts from Suricata
