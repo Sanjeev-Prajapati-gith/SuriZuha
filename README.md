@@ -50,6 +50,73 @@ This VM is designed for **learning, detection, and alert analysis**.
 
 ---
 
+## How This Can Be Used in a Lab
+
+SuriZuh can be used as the main monitoring VM in a small cyber security lab.
+
+Lab VMs can be placed on the same virtual network, and they should be able to reach each other.
+
+Common lab scenarios include:
+
+- **Attacks targeting SuriZuh directly:** Students can run attacks, scans, or web testing against DVWA, Apache, SSH, phpMyAdmin, or other exposed lab services. If suitable Suricata rules are enabled, network attacks targeting the SuriZuh VM should be detected.
+- **Attacks between other lab VMs:** SuriZuh can monitor traffic between other VMs when Suricata can see that traffic. In VMware or VirtualBox labs, this usually means placing the VMs on the same virtual network and enabling promiscuous mode where required.
+- **Endpoint logging with Wazuh Agent:** An attacking VM can target a Windows VM while the Windows VM reports security events and system logs to SuriZuh through the Wazuh Agent.
+
+Students can then compare:
+
+- Network alerts from Suricata
+- Linux host alerts from the SuriZuh server
+- Windows host alerts from the Wazuh Agent
+
+This makes the lab useful for practising both **network intrusion detection** and **host intrusion detection**.
+
+---
+
+## Main Lab Flow
+
+SuriZuh can be used in three main lab flows.
+
+### Direct Monitoring Flow
+
+This flow focuses on attacks against services running on the SuriZuh VM.
+
+1. Open the lab home page.
+2. Open DVWA, Apache, SSH, phpMyAdmin, or another exposed lab service.
+3. Open Suricata Manager and enable a suitable rule for the traffic you want to detect.
+4. From Kali, run web attacks, scans, or traffic tests against the SuriZuh VM.
+5. Check Suricata alerts in EveBox.
+6. Check related alerts in Wazuh Dashboard.
+
+This helps students understand how attacks against the monitoring VM itself can be detected.
+
+### Network IDS Flow
+
+This flow focuses on attacks between other lab VMs.
+
+1. Place the lab VMs on the same virtual network.
+2. Enable promiscuous mode where required so Suricata can see traffic between VMs.
+3. Run attacks, scans, or traffic tests from one VM against another VM.
+4. Check Suricata alerts in EveBox.
+5. Check Suricata alerts in Wazuh Dashboard.
+6. Edit local Suricata rules and test the same traffic again.
+
+This helps students understand how network attacks can be detected when the sensor can see the traffic.
+
+### Host IDS Flow
+
+This flow focuses on endpoint logs, host activity, and Wazuh alerts.
+
+1. Open Wazuh Dashboard.
+2. Review alerts from the SuriZuh server itself.
+3. Add another VM, such as Windows, and install the Wazuh Agent on it.
+4. Configure the agent to send logs to the SuriZuh Wazuh Manager.
+5. Run activity on the endpoint, such as login attempts, file changes, or service changes.
+6. Review endpoint security events and system activity in Wazuh Dashboard.
+
+This helps students compare network intrusion detection with host intrusion detection.
+
+---
+
 ## Default Access
 
 The VM console shows the current lab URL after boot.
@@ -147,62 +214,6 @@ It can be used to:
 - List Suricata log file names
 
 Suricata Manager does not show log content. Use Wazuh and EveBox for log and alert analysis.
-
----
-
-## How This Can Be Used in a Lab
-
-SuriZuh can be used as the main monitoring VM in a small cyber security lab.
-
-Lab VMs can be placed on the same virtual network, and they should be able to reach each other.
-
-Common lab scenarios include:
-
-- **Attacks targeting SuriZuh directly:** Students can run attacks, scans, or web testing against DVWA, Apache, SSH, phpMyAdmin, or other exposed lab services. If suitable Suricata rules are enabled, network attacks targeting the SuriZuh VM should be detected.
-- **Attacks between other lab VMs:** SuriZuh can monitor traffic between other VMs when Suricata can see that traffic. In VMware or VirtualBox labs, this usually means placing the VMs on the same virtual network and enabling promiscuous mode where required.
-- **Endpoint logging with Wazuh Agent:** An attacking VM can target a Windows VM while the Windows VM reports security events and system logs to SuriZuh through the Wazuh Agent.
-
-Students can then compare:
-
-- Network alerts from Suricata
-- Linux host alerts from the SuriZuh server
-- Windows host alerts from the Wazuh Agent
-
-This makes the lab useful for practising both **network intrusion detection** and **host intrusion detection**.
-
----
-
-## Main Lab Flow
-
-SuriZuh can be used in two main ways.
-
-### Network IDS Flow with Suricata
-
-This flow focuses on network traffic and Suricata alerts.
-
-1. Open the lab home page.
-2. Open DVWA.
-3. Open Suricata Manager and set a suitable Suricata rule for the traffic you want to detect.
-4. From Kali, run web attacks, scans, or traffic tests against the SuriZuh VM.
-5. Check Suricata alerts in EveBox.
-6. Check Suricata alerts in Wazuh Dashboard.
-7. Edit local Suricata rules and test the same attack again.
-
-This helps students understand how network attacks can be detected from traffic.
-
-### Host IDS Flow with Wazuh
-
-This flow focuses on system logs, host activity, and Wazuh alerts.
-
-1. Open Wazuh Dashboard.
-2. Review alerts from the SuriZuh server itself.
-3. Review Suricata alerts in Wazuh, because Wazuh can read Suricata `eve.json` events.
-4. Test host activity such as SSH login attempts, sudo usage, file changes, or service changes.
-5. Add another VM, such as Windows, and install the Wazuh Agent on it.
-6. Configure the Windows Agent to send logs to the SuriZuh Wazuh Manager.
-7. Review Windows security events and system activity in Wazuh Dashboard.
-
-This helps students compare local Linux host monitoring with logs collected from another endpoint.
 
 ---
 
