@@ -72,6 +72,13 @@ This makes the lab useful for practising both **network intrusion detection** an
 
 ---
 
+## FlaskVA Defensive Practice
+
+FlaskVA can be used with SuriZuh to generate web-application attack activity and investigate it with Suricata, EveBox, and Wazuh.
+
+See [flaskva-blue-team.md](flaskva-blue-team.md) for the FlaskVA defensive investigation guide.
+
+---
 ## Main Lab Flow
 
 SuriZuh can be used in three main lab flows.
